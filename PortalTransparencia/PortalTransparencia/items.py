@@ -10,7 +10,7 @@ from scrapy.loader import ItemLoader
 from scrapy.loader.processors import TakeFirst, MapCompose, Join, Identity
 
 
-class DeputadoFederalItem(scrapy.Item):
+class DeputadoItem(scrapy.Item):
     id = scrapy.Field()
     nome = scrapy.Field()
     biografia = scrapy.Field()
@@ -21,7 +21,7 @@ class DeputadoFederalItem(scrapy.Item):
     vice_no_bloco = scrapy.Field()
 
 
-class DeputadoFederalLoader(ItemLoader):
+class DeputadoLoader(ItemLoader):
     default_output_processor = TakeFirst()
 
     biografia_out = Identity()
@@ -32,10 +32,18 @@ class DeputadoFederalLoader(ItemLoader):
 
 
 class GastoCusteadoItem(scrapy.Item):
+    tipo = scrapy.Field()
+    periodo = scrapy.Field()
+    nome_deputado = scrapy.Field()
     descricao = scrapy.Field()
     valor = scrapy.Field()
     data = scrapy.Field()
-    nome_deputado = scrapy.Field()
+    url_pdf = scrapy.Field()
+    file_urls = scrapy.Field()
+
+
+class GastoCusteadoLoader(ItemLoader):
+    default_output_processor = TakeFirst()
 
 
 class ProjetoLeiItem(scrapy.Item):

@@ -1,21 +1,20 @@
 # -*- coding: utf-8 -*-
 
-import scrapy
-from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
-from .. items import DeputadoFederalLoader, DeputadoFederalItem
+from scrapy.linkextractors import LinkExtractor
+from .. items import DeputadoLoader, DeputadoItem
 
-class DeputadosSpider(CrawlSpider):
-    name = 'deputados_federais'
+class DeputadosEstaduaisParanaSpider(CrawlSpider):
+    name = 'deputados_estaduais_pr'
     allowed_domains = ['alep.pr.gov.br']
     start_urls = ['http://www.alep.pr.gov.br/deputados']
 
     rules = (
-        Rule(LinkExtractor(allow=r'deputados/perfil/'), callback='parse_deputado', follow=True),
+        Rule(LinkExtractor(allow='perfil/'), callback='parse_deputado'),
     )
 
     def parse_deputado(self, response):
-        deputado = DeputadoFederalLoader(item=DeputadoFederalItem(), response=response)
+        deputado = DeputadoLoader(item=DeputadoItem(), response=response)
         deputado.add_css('nome', '.nome-deputado::text')
         deputado.add_css('biografia', 'div.bio span::text')
         deputado.add_value('partido', response.css('.contato p.partido::text').re('.*- (.*)'))
