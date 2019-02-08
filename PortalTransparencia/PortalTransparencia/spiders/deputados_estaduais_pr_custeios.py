@@ -18,7 +18,6 @@ class DeputadosEstaduaisParanaCusteiosSpider(scrapy.Spider):
             url = response.urljoin('/transparencia/ajax?ID={id}'.format(id=identificador))
             meta = {'periodo': descricao_data}
             yield Request(url, meta=meta, callback=self.parse_custeio_mes)
-            break
 
     def parse_custeio_mes(self, response):
         periodo = response.meta['periodo']

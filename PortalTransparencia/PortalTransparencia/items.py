@@ -23,12 +23,7 @@ class DeputadoItem(scrapy.Item):
 
 class DeputadoLoader(ItemLoader):
     default_output_processor = TakeFirst()
-
     biografia_out = Identity()
-    # name_in = MapCompose(unicode.title)
-    # name_out = Join()
-
-    # price_in = MapCompose(unicode.strip)
 
 
 class GastoCusteadoItem(scrapy.Item):
